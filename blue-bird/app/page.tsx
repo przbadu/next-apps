@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import AuthButtonServer from "./components/auth-button-server"
 
 export default async function Home() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient<Database>({ cookies })
 
   // redirect to login if not logged in
   const { data: { session } } = await supabase.auth.getSession()
