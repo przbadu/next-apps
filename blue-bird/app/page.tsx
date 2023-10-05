@@ -14,7 +14,7 @@ export default async function Home() {
   }
 
   // authenticated code
-  const { data: tweets } = await supabase.from("tweets").select()
+  const { data: tweets } = await supabase.from("tweets").select('*, profiles(*)')
 
   return (
     <>
