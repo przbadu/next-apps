@@ -4,6 +4,7 @@
     - [Next 13](https://nextjs.org/)
     - [Supabase](https://supabase.com/)
     - [Tutorial](https://egghead.io/courses/build-a-twitter-clone-with-the-next-js-app-router-and-supabase-19bebadb)
+    - Github authentication.
 2. [next-mongoose-crud](https://github.com/przbadu/next-apps/tree/main)
     - [Next 13](https://nextjs.org/)
     - [Mongo db](https://www.mongodb.com)
