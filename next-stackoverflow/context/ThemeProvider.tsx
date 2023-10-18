@@ -13,9 +13,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = React.useState("");
 
   const handleThemeChange = () => {
-    const newMode = mode === "light" ? "dark" : "light";
-    setMode(newMode);
-    document.documentElement.classList.add(newMode);
+    const isSystemDarkTheme = !("theme" in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches
+    if (localStorage.theme === 'dark' || isSystemDarkTheme) {
+      setMode('dark')
+      document.documentElement.classList.add('dark');
+      return;
+    }
+
+    setMode('light');
+    document.documentElement.classList.remove('dark');
   };
 
   useEffect(() => {
