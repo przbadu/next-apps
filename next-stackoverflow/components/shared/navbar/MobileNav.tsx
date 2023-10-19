@@ -76,8 +76,8 @@ const MobileNav = () => {
 
         </Link>
 
-        <div>
-          <SheetClose asChild>
+        <div className='flex flex-col justify-between h-full overflow-y-auto custom-scrollbar sticky'>
+          <SheetClose asChild className='flex-1'>
             <NavContent />
           </SheetClose>
 

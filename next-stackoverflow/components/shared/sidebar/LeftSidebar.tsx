@@ -12,7 +12,7 @@ const NavContent = () => {
   const pathname = usePathname()
 
   return (
-    <section className='flex flex-col gap-6'>
+    <section className='flex flex-1 flex-col gap-6'>
       {sidebarLinks.map(item => {
         const isActive = (pathname.includes(item.route) && item.route.length > 1) || pathname === item.route
 
@@ -29,7 +29,7 @@ const NavContent = () => {
                 height={20}
                 className={`${isActive ? '' : 'invert-colors'}`}
               />
-              <p className={`${isActive ? 'base-bold' : 'base-medium'}`}>{item.label}</p>
+              <p className={`${isActive ? 'base-bold' : 'base-medium'} max-lg:hidden`}>{item.label}</p>
             </Link>
           </div>
         )
@@ -40,7 +40,7 @@ const NavContent = () => {
 
 const LeftSidebar = () => {
   return (
-    <section className='flex justify-between max-h-screen flex-col gap-6 pt-36 px-10 pb-6'>
+    <section className='background-light900_dark200 light-border sticky left-0 top-0 flex flex-col h-screen justify-between overflow-y-auto border-r p-6 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[256px] custom-scrollbar'>
       <NavContent />
 
 
@@ -48,13 +48,27 @@ const LeftSidebar = () => {
         <div className="flex flex-col gap-3">
           <Link href="/sign-in">
             <Button className='small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none'>
-              <span className='primary-text-gradient'>Log In</span>
+              <Image
+                src="/assets/icons/account.svg"
+                alt="login"
+                width={20}
+                height={20}
+                className='invert-colors lg:hidden'
+              />
+              <span className='max-lg:hidden'>Log In</span>
             </Button>
           </Link>
 
           <Link href="/sign-up">
             <Button className='small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none'>
-              Sign Up
+              <Image
+                src="/assets/icons/sign-up.svg"
+                alt="signup"
+                width={20}
+                height={20}
+                className='invert-colors lg:hidden'
+              />
+              <span className='max-lg:hidden'>Sign Up</span>
             </Button>
           </Link>
         </div>
