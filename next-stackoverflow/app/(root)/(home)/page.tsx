@@ -1,23 +1,12 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import LocalSearch from "@/components/shared/search/LocalSearch"
+import { HomePageFilters } from "@/constants/filters"
+import Filter from "@/components/Filter"
 import RenderTag from "@/components/shared/RenderTag"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import HomeFilter from "@/components/home/HomeFilter"
 
 export default function Home() {
-  const filters = [
-    { _id: 1, name: 'Newest' },
-    { _id: 2, name: 'Recommended' },
-    { _id: 3, name: 'Frequent' },
-    { _id: 4, name: 'Unanswered' },
-  ]
-
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -42,26 +31,12 @@ export default function Home() {
           otherClasses='w-full'
         />
 
-        <div className="hidden md:flex flex-row gap-4 flex-1 w-full">
-          {filters.map((filter) => (
-            <RenderTag key={filter._id} _id={filter._id} name={filter.name} />
-          ))}
-        </div>
-
-        <div className="w-full md:hidden">
-          <Select>
-            <SelectTrigger className="w-full sm:w-[130px] min-h-[56px] background-light800_darkgradient">
-              <SelectValue placeholder="Select a Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {filters.map((filter) => (
-                <SelectItem key={filter._id} value={filter._id.toString()}>
-                  {filter.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <Filter
+          filters={HomePageFilters}
+          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          containerClasses="hidden max-md:flex"
+        />
+        <HomeFilter />
       </div>
     </>
   )
