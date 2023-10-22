@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Editor } from "@tinymce/tinymce-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,8 +18,11 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { questionSchema } from "@/lib/validations";
+import { useRef } from "react";
 
 const Question = () => {
+  const editorRef = useRef(null);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof questionSchema>>({
     resolver: zodResolver(questionSchema),
@@ -79,7 +83,40 @@ const Question = () => {
               </FormLabel>
 
               <FormControl className="mt-3.5">
-                {/* TODO: Add an editor component  */}
+                <Editor
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_KEY}
+                  onInit={(_evt, editor) => {
+                    // @ts-ignore
+                    editorRef.current = editor;
+                  }}
+                  initialValue=""
+                  init={{
+                    height: 350,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "codesample",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                    ],
+                    toolbar:
+                      "undo redo | " +
+                      "codesample | bold italic forecolor | alignleft aligncenter | " +
+                      "alignright alignjustify | bullist numlist ",
+                    content_style: "body { font-family:Inter; font-size:16px }",
+                  }}
+                />
               </FormControl>
 
               <FormDescription className="body-regular mt-2.5 text-light-500">
