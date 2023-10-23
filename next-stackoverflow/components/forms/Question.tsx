@@ -18,12 +18,15 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { questionSchema } from "@/lib/validations";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 
+const type = "edit";
+
 const Question = () => {
   const editorRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof questionSchema>>({
@@ -37,9 +40,14 @@ const Question = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof questionSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    setIsSubmitting(true);
+
+    try {
+      // Make an async call to our API -> create a question
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputkeyDown = (
@@ -215,7 +223,17 @@ const Question = () => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
