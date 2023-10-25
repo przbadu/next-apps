@@ -21,8 +21,9 @@ import { questionSchema } from "@/lib/validations";
 import React, { useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
-const type = "edit";
+const type = "create";
 
 const Question = () => {
   const editorRef = useRef(null);
@@ -39,11 +40,12 @@ const Question = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof questionSchema>) {
+  async function onSubmit(values: z.infer<typeof questionSchema>) {
     setIsSubmitting(true);
 
     try {
       // Make an async call to our API -> create a question
+      await createQuestion({});
     } catch (error) {
     } finally {
       setIsSubmitting(false);
@@ -133,6 +135,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
