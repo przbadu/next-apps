@@ -1,6 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 let isConnected: boolean = false;
+
+const tagSchema = new Schema({
+  name: String,
+});
+
+const authorSchema = new Schema({
+  email: String,
+  name: String,
+});
+
+const questionSchema = new Schema({
+  title: String,
+  explanation: String,
+  tags: [tagSchema],
+  author: [authorSchema],
+});
 
 export const connectToDatabase = async () => {
   mongoose.set("strictQuery", true);
