@@ -5,6 +5,9 @@ const nextConfig = {
     mdxRs: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
+  images: {
+    domains: ["i.pravatar.cc"],
+  },
 };
 
 module.exports = nextConfig;

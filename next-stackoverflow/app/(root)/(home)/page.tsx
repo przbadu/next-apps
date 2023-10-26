@@ -7,9 +7,10 @@ import Filter from "@/components/Filter";
 import HomeFilter from "@/components/home/HomeFilter";
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
+import { getAllQuestions } from "@/lib/actions/question.action";
 
 export default async function Home() {
-  // const result = await getQuestions();
+  const result = await getAllQuestions({});
 
   return (
     <>
@@ -40,8 +41,8 @@ export default async function Home() {
         <HomeFilter />
 
         <div className="mt-10 flex w-full flex-col gap-6">
-          {questions.length > 0 ? (
-            questions.map((question) => (
+          {result.questions.length > 0 ? (
+            result.questions.map((question) => (
               <QuestionCard
                 key={question._id}
                 _id={question._id}

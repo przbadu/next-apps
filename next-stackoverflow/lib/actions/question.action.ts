@@ -3,13 +3,29 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tag.model";
-import { GetQuestionParams, CreateQuestionParams } from "./shared.types";
+import { GetQuestionsParams, CreateQuestionParams } from "./shared.types";
+import User from "@/database/user.model";
+import { revalidatePath } from "next/cache";
 
 // Get all questions
+export async function getAllQuestions(params: GetQuestionsParams) {
+  try {
+    connectToDatabase();
+
+    const questions = await Question.find({})
+      .populate({ path: "tags", model: Tag })
+      .populate({ path: "author", model: User })
+      .sort({ createdAt: -1 });
+
+    return { questions };
+  } catch (error) {
+    console.log("Failed to getAllQuestions", error);
+    throw error;
+  }
+}
 
 // Create a question
 export async function createQuestion(params: CreateQuestionParams) {
-  // eslint-disable-next-line no-empty
   try {
     connectToDatabase();
 
@@ -39,6 +55,8 @@ export async function createQuestion(params: CreateQuestionParams) {
     // Create an interaction record for the user's ask question action
 
     // Increment author's reputation by +5 for asking a question
+
+    revalidatePath(path);
   } catch (error) {
     console.log("Failed to createQuestion", error);
   }
