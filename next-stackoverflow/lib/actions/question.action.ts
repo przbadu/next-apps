@@ -3,10 +3,12 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tag.model";
+import { GetQuestionParams, CreateQuestionParams } from "./shared.types";
 
-export async function createQuestion(params: any) {
-  console.log(params);
+// Get all questions
 
+// Create a question
+export async function createQuestion(params: CreateQuestionParams) {
   // eslint-disable-next-line no-empty
   try {
     connectToDatabase();
