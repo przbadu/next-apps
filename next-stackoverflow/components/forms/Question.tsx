@@ -24,7 +24,7 @@ import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 
-const type = "create";
+const type = ["create", "edit"][Math.floor(Math.random() * 2)];
 
 interface Props {
   mongoUserId: string;
@@ -57,7 +57,7 @@ const Question = ({ mongoUserId }: Props) => {
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
-        path: pathname,
+        path: pathname || "/",
       });
 
       // navigate to home page
