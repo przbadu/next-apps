@@ -6,7 +6,13 @@ const nextConfig = {
     serverComponentsExternalPackages: ["mongoose"],
   },
   images: {
-    domains: ["i.pravatar.cc"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
+    domains: ["i.pravatar.cc", "img.clerk.com"],
   },
 };
 
