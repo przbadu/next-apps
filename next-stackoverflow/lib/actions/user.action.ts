@@ -6,11 +6,30 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
 import Question from "@/database/question.model";
 
+// GET all users
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    connectToDatabase();
+
+    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    console.log(params);
+
+    const users = await User.find({}).sort({ createdAt: -1 });
+
+    return { users };
+  } catch (error) {
+    console.log(`Error fetching Users: ${error}`);
+    throw error;
+  }
+}
+
+// GET user by id
 export async function getUserById(params: GetUserByIdParams) {
   try {
     connectToDatabase();
